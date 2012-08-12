@@ -1,0 +1,240 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C194253C15D838BD004FC314 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C194253B15D838BD004FC314 /* Foundation.framework */; };
+		C194254115D838BD004FC314 /* PublicAutomation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C194254015D838BD004FC314 /* PublicAutomation.h */; };
+		C194254315D838BD004FC314 /* PublicAutomation.m in Sources */ = {isa = PBXBuildFile; fileRef = C194254215D838BD004FC314 /* PublicAutomation.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C194253615D838BD004FC314 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				C194254115D838BD004FC314 /* PublicAutomation.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C194253815D838BD004FC314 /* libPublicAutomation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPublicAutomation.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C194253B15D838BD004FC314 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C194253F15D838BD004FC314 /* PublicAutomation-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PublicAutomation-Prefix.pch"; sourceTree = "<group>"; };
+		C194254015D838BD004FC314 /* PublicAutomation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublicAutomation.h; sourceTree = "<group>"; };
+		C194254215D838BD004FC314 /* PublicAutomation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublicAutomation.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C194253515D838BD004FC314 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C194253C15D838BD004FC314 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C194252D15D838BD004FC314 = {
+			isa = PBXGroup;
+			children = (
+				C194253D15D838BD004FC314 /* PublicAutomation */,
+				C194253A15D838BD004FC314 /* Frameworks */,
+				C194253915D838BD004FC314 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C194253915D838BD004FC314 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C194253815D838BD004FC314 /* libPublicAutomation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C194253A15D838BD004FC314 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C194253B15D838BD004FC314 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C194253D15D838BD004FC314 /* PublicAutomation */ = {
+			isa = PBXGroup;
+			children = (
+				C194254015D838BD004FC314 /* PublicAutomation.h */,
+				C194254215D838BD004FC314 /* PublicAutomation.m */,
+				C194253E15D838BD004FC314 /* Supporting Files */,
+			);
+			path = PublicAutomation;
+			sourceTree = "<group>";
+		};
+		C194253E15D838BD004FC314 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C194253F15D838BD004FC314 /* PublicAutomation-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C194253715D838BD004FC314 /* PublicAutomation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C194254615D838BD004FC314 /* Build configuration list for PBXNativeTarget "PublicAutomation" */;
+			buildPhases = (
+				C194253415D838BD004FC314 /* Sources */,
+				C194253515D838BD004FC314 /* Frameworks */,
+				C194253615D838BD004FC314 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PublicAutomation;
+			productName = PublicAutomation;
+			productReference = C194253815D838BD004FC314 /* libPublicAutomation.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C194252F15D838BD004FC314 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = ThoughtWorks;
+			};
+			buildConfigurationList = C194253215D838BD004FC314 /* Build configuration list for PBXProject "PublicAutomation" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C194252D15D838BD004FC314;
+			productRefGroup = C194253915D838BD004FC314 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C194253715D838BD004FC314 /* PublicAutomation */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C194253415D838BD004FC314 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C194254315D838BD004FC314 /* PublicAutomation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C194254415D838BD004FC314 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C194254515D838BD004FC314 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C194254715D838BD004FC314 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/PublicAutomation.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PublicAutomation/PublicAutomation-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C194254815D838BD004FC314 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/PublicAutomation.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PublicAutomation/PublicAutomation-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C194253215D838BD004FC314 /* Build configuration list for PBXProject "PublicAutomation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C194254415D838BD004FC314 /* Debug */,
+				C194254515D838BD004FC314 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C194254615D838BD004FC314 /* Build configuration list for PBXNativeTarget "PublicAutomation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C194254715D838BD004FC314 /* Debug */,
+				C194254815D838BD004FC314 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C194252F15D838BD004FC314 /* Project object */;
+}
