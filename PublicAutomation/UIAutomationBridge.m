@@ -7,6 +7,9 @@
 //
 
 #import "UIAutomationBridge.h"
+#import "KIFTypist.h"
+
+#import "CGGeometry-KIFAdditions.h"
 
 @implementation UIAutomationBridge
 
@@ -15,13 +18,18 @@
 }
 
 + (BOOL) checkForKeyboard {
-    // this was lifted from KIF's UIApplication+KIFAdditions
-    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
-        if ([NSStringFromClass([window class]) isEqual:@"UITextEffectsWindow"]) {
-            return YES;
-        }
-    }
-    return NO;
+    return [KIFTypist keyboardWindow] != nil;
+}
+
++ (CGPoint) tapView:(UIView *)view {
+    return [self tapView:view atPoint:CGPointCenteredInRect(view.bounds)];
+}
+
++ (CGPoint) tapView:(UIView *)view atPoint:(CGPoint)point{
+    CGPoint tapPoint = [view.window convertPoint:point fromView:view];
+    [[self uia] sendTap:tapPoint];
+    
+    return tapPoint;
 }
 
 @end

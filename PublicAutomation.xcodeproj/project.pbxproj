@@ -12,6 +12,7 @@
 		C194254315D838BD004FC314 /* PublicAutomation.m in Sources */ = {isa = PBXBuildFile; fileRef = C194254215D838BD004FC314 /* PublicAutomation.m */; };
 		C194255115D83B46004FC314 /* UIView+PublicAutomation.m in Sources */ = {isa = PBXBuildFile; fileRef = C194254F15D839EC004FC314 /* UIView+PublicAutomation.m */; };
 		C194255215D83B49004FC314 /* UIAutomationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = C194254E15D839EC004FC314 /* UIAutomationBridge.m */; };
+		C194256315D94610004FC314 /* KIFTypist.m in Sources */ = {isa = PBXBuildFile; fileRef = C194256215D9460F004FC314 /* KIFTypist.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +39,9 @@
 		C194254E15D839EC004FC314 /* UIAutomationBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIAutomationBridge.m; sourceTree = "<group>"; };
 		C194254F15D839EC004FC314 /* UIView+PublicAutomation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+PublicAutomation.m"; sourceTree = "<group>"; };
 		C194255015D83A1D004FC314 /* LoadableCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoadableCategory.h; sourceTree = "<group>"; };
+		C194256115D9460F004FC314 /* KIFTypist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIFTypist.h; sourceTree = "<group>"; };
+		C194256215D9460F004FC314 /* KIFTypist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIFTypist.m; sourceTree = "<group>"; };
+		C194256415D949CE004FC314 /* CGGeometry-KIFAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CGGeometry-KIFAdditions.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,9 @@
 		C194253D15D838BD004FC314 /* PublicAutomation */ = {
 			isa = PBXGroup;
 			children = (
+				C194256415D949CE004FC314 /* CGGeometry-KIFAdditions.h */,
+				C194256115D9460F004FC314 /* KIFTypist.h */,
+				C194256215D9460F004FC314 /* KIFTypist.m */,
 				C194255015D83A1D004FC314 /* LoadableCategory.h */,
 				C194254D15D839EC004FC314 /* UIAutomationBridge.h */,
 				C194254E15D839EC004FC314 /* UIAutomationBridge.m */,
@@ -154,6 +161,7 @@
 				C194254315D838BD004FC314 /* PublicAutomation.m in Sources */,
 				C194255115D83B46004FC314 /* UIView+PublicAutomation.m in Sources */,
 				C194255215D83B49004FC314 /* UIAutomationBridge.m in Sources */,
+				C194256315D94610004FC314 /* KIFTypist.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

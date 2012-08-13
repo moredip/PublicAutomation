@@ -7,18 +7,30 @@
 //
 
 #import "KIFTypist.h"
-#import "UIApplication-KIFAdditions.h"
-#import "UIView-KIFAdditions.h"
+
+#import "UIAutomationBridge.h"
 #import "CGGeometry-KIFAdditions.h"
-#import "UIAccessibilityElement-KIFAdditions.h"
 
 @interface KIFTypist()
 + (NSString *)_representedKeyboardStringForCharacter:(NSString *)characterString;
 + (BOOL)_enterCharacter:(NSString *)characterString history:(NSMutableDictionary *)history;
-+ (BOOL)_enterCustomKeyboardCharacter:(NSString *)characterString;
+
++ (NSArray *)_subviewsOfView:(UIView *)view withClassNamePrefix:(NSString *)prefix;
 @end
 
 @implementation KIFTypist
+
+// Listed from UIApplication+KIFAdditions
++ (UIWindow *)keyboardWindow;
+{
+    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
+        if ([NSStringFromClass([window class]) isEqual:@"UITextEffectsWindow"]) {
+            return window;
+        }
+    }
+    
+    return nil;
+}
 
 + (NSString *)_representedKeyboardStringForCharacter:(NSString *)characterString;
 {
@@ -45,13 +57,16 @@
         return YES;
     }
     
-    UIWindow *keyboardWindow = [[UIApplication sharedApplication] keyboardWindow];
-    UIView *keyboardView = [[keyboardWindow subviewsWithClassNamePrefix:@"UIKBKeyplaneView"] lastObject];
+    UIView *keyboardView = [[self _subviewsOfView:[self keyboardWindow] withClassNamePrefix:@"UIKBKeyplaneView"] lastObject];
     
     // If we didn't find the standard keyboard view, then we may have a custom keyboard
     if (!keyboardView) {
-        return [self _enterCustomKeyboardCharacter:characterString];
+        // Custom keyboards not supported for now - I would have had to import more KIF stuff
+        // than I wanted to.
+        NSLog( @"Sorry, custom keyboards are currently not supported." );
+        return NO;
     }
+    
     id /*UIKBKeyplane*/ keyplane = [keyboardView valueForKey:@"keyplane"];
     BOOL isShiftKeyplane = [[keyplane valueForKey:@"isShiftKeyplane"] boolValue];
     
@@ -106,7 +121,7 @@
     }
     
     if (keyToTap) {
-        [keyboardView tapAtPoint:CGPointCenteredInRect([keyToTap frame])];
+        [UIAutomationBridge tapView:keyboardView atPoint:CGPointCenteredInRect([keyToTap frame])];
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, keystrokeDelay, false);
         
         return YES;
@@ -114,7 +129,7 @@
     
     // We didn't find anything, so try the symbols pane
     if (modifierKey) {
-        [keyboardView tapAtPoint:CGPointCenteredInRect([modifierKey frame])];
+        [UIAutomationBridge tapView:keyboardView atPoint:CGPointCenteredInRect([modifierKey frame])];
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, keystrokeDelay, false);
         
         // If we're back at a place we've been before, and we still have things to explore in the previous
@@ -136,30 +151,27 @@
     return NO;
 }
 
-+ (BOOL)_enterCustomKeyboardCharacter:(NSString *)characterString;
+
+// Lifted from UIView+KIFAdditions
++ (NSArray *)_subviewsOfView:(UIView *)view withClassNamePrefix:(NSString *)prefix;
 {
-    const NSTimeInterval keystrokeDelay = 0.05f;
+    NSMutableArray *result = [NSMutableArray array];
     
-    if (!characterString.length) {
-        return YES;
+    // Breadth-first population of matching subviews
+    // First traverse the next level of subviews, adding matches.
+    for (UIView *subview in view.subviews) {
+        if ([NSStringFromClass([subview class]) hasPrefix:prefix]) {
+            [result addObject:subview];
+        }
     }
     
-    characterString = [self _representedKeyboardStringForCharacter:characterString];
-    
-    // For custom keyboards, use the classic methods of looking up views based on accessibility labels
-    UIWindow *keyboardWindow = [[UIApplication sharedApplication] keyboardWindow];
-    
-    UIAccessibilityElement *element = [keyboardWindow accessibilityElementWithLabel:characterString];
-    if (!element) {
-        return NO;
+    // Now traverse the subviews of the subviews, adding matches.
+    for (UIView *subview in view.subviews) {
+        NSArray *matchingSubviews = [self _subviewsOfView:subview withClassNamePrefix:prefix];
+        [result addObjectsFromArray:matchingSubviews];
     }
     
-    UIView *view = [UIAccessibilityElement viewContainingAccessibilityElement:element];
-    CGRect keyFrame = [view.window convertRect:[element accessibilityFrame] toView:view];
-    [view tapAtPoint:CGPointCenteredInRect(keyFrame)];
-    CFRunLoopRunInMode(kCFRunLoopDefaultMode, keystrokeDelay, false);
-    
-    return YES;
+    return result;
 }
 
 @end

@@ -9,21 +9,16 @@
 #import "UIAutomation.h"
 #import "UIAutomationBridge.h"
 
+#import "CGGeometry-KIFAdditions.h"
+
 #import "LoadableCategory.h"
 MAKE_CATEGORIES_LOADABLE(UIView_PublicAutomation)
-
-CGPoint centerOfViewInWindowCoords(UIView *view){
-    CGPoint centerPoint = CGPointMake(view.frame.size.width * 0.5f, view.frame.size.height * 0.5f);
-    return [view.window convertPoint:centerPoint fromView:view];
-}
 
 @implementation UIView (PublicAutomation)
 
 - (id) PA_tap{
-    CGPoint tapPoint = centerOfViewInWindowCoords(self);
-    [[UIAutomationBridge uia] sendTap:tapPoint];
-
-    return [NSValue valueWithCGPoint:tapPoint];
+    CGPoint pointTapped = [UIAutomationBridge tapView:self];
+    return [NSValue valueWithCGPoint:pointTapped];
 }
 
 // THESE MAGIC NUMBERS ARE IMPORTANT. From experimentation it appears that too big or too small a ration leads to 
@@ -55,7 +50,8 @@ CGSize swipeRatiosForDirection(NSString *direction){
 }
 
 - (NSString *) PA_swipe:(NSString *)dir{
-    CGPoint swipeStart = centerOfViewInWindowCoords(self);
+
+    CGPoint swipeStart = [self.window convertPoint:CGPointCenteredInRect(self.bounds) fromView:self];
     CGSize ratios = swipeRatiosForDirection(dir);
     CGSize viewSize = self.bounds.size;
     CGPoint swipeEnd = CGPointMake(

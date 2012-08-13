@@ -7,5 +7,6 @@
 //
 
 @interface KIFTypist : NSObject
++ (UIWindow *) keyboardWindow;
 + (BOOL)enterCharacter:(NSString *)characterString;
 @end

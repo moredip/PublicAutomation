@@ -9,8 +9,10 @@
 
 @interface UIAutomationBridge : NSObject
 
-+ (BOOL) checkForKeyboard;
-
 + (UIASyntheticEvents *) uia;
+
++ (BOOL) checkForKeyboard;
++ (CGPoint) tapView:(UIView *)view;
++ (CGPoint) tapView:(UIView *)view atPoint:(CGPoint)point;
 
 @end
