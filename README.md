@@ -1,4 +1,3 @@
-
 # PublicAutomation
 
 PublicAutomation is a wrapper around the private framework used by Apple's UIAutomation tools.
@@ -12,18 +11,24 @@ PublicAutomation is best used together with a view selection library (like [Shel
 # Show me code
  
 ### Tap
-    [UIAutomationBridge tapView:myView];
-    // or
-    [UIAutomationBridge tapView:myView atPoint:CGPointMake(12.0,34.0)];
+```objectivec
+[UIAutomationBridge tapView:myView];
+// or
+[UIAutomationBridge tapView:myView atPoint:CGPointMake(12.0,34.0)];
+````
 
 ### Swipe
-    [UIAutomationBridge swipeView:myView inDirection:PADirectionLeft];
+```objectivec
+[UIAutomationBridge swipeView:myView inDirection:PADirectionLeft];
+````
     
 ### Type
-    [UIAutomationBridge tapView:myTextField];
-    if( [UIAutomationBridge checkForKeyboard] ){
-      [UIAutomationBridge typeIntoKeyboard:@"ZOMG I am typing. 123 and $%^ work too!"];
-    }
+```objectivec
+[UIAutomationBridge tapView:myTextField];
+if( [UIAutomationBridge checkForKeyboard] ){
+  [UIAutomationBridge typeIntoKeyboard:@"ZOMG I am typing. 123 and $%^ work too!"];
+}
+````
 
 
 ## Credits
