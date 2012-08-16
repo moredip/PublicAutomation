@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		C194253C15D838BD004FC314 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C194253B15D838BD004FC314 /* Foundation.framework */; };
 		C194254115D838BD004FC314 /* PublicAutomation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C194254015D838BD004FC314 /* PublicAutomation.h */; };
-		C194254315D838BD004FC314 /* PublicAutomation.m in Sources */ = {isa = PBXBuildFile; fileRef = C194254215D838BD004FC314 /* PublicAutomation.m */; };
 		C194255115D83B46004FC314 /* UIView+PublicAutomation.m in Sources */ = {isa = PBXBuildFile; fileRef = C194254F15D839EC004FC314 /* UIView+PublicAutomation.m */; };
 		C194255215D83B49004FC314 /* UIAutomationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = C194254E15D839EC004FC314 /* UIAutomationBridge.m */; };
 		C194256315D94610004FC314 /* KIFTypist.m in Sources */ = {isa = PBXBuildFile; fileRef = C194256215D9460F004FC314 /* KIFTypist.m */; };
+		C194256715D9516B004FC314 /* UIAutomationBridge.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C194254D15D839EC004FC314 /* UIAutomationBridge.h */; };
+		C1FFB24915DCCECC00CACB04 /* PALoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FFB24815DCCECC00CACB04 /* PALoader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,6 +24,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				C194254115D838BD004FC314 /* PublicAutomation.h in CopyFiles */,
+				C194256715D9516B004FC314 /* UIAutomationBridge.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,7 +35,6 @@
 		C194253B15D838BD004FC314 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C194253F15D838BD004FC314 /* PublicAutomation-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PublicAutomation-Prefix.pch"; sourceTree = "<group>"; };
 		C194254015D838BD004FC314 /* PublicAutomation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublicAutomation.h; sourceTree = "<group>"; };
-		C194254215D838BD004FC314 /* PublicAutomation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublicAutomation.m; sourceTree = "<group>"; };
 		C194254C15D83959004FC314 /* UIAutomation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAutomation.h; sourceTree = "<group>"; };
 		C194254D15D839EC004FC314 /* UIAutomationBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIAutomationBridge.h; sourceTree = "<group>"; };
 		C194254E15D839EC004FC314 /* UIAutomationBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIAutomationBridge.m; sourceTree = "<group>"; };
@@ -42,6 +43,7 @@
 		C194256115D9460F004FC314 /* KIFTypist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIFTypist.h; sourceTree = "<group>"; };
 		C194256215D9460F004FC314 /* KIFTypist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIFTypist.m; sourceTree = "<group>"; };
 		C194256415D949CE004FC314 /* CGGeometry-KIFAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CGGeometry-KIFAdditions.h"; sourceTree = "<group>"; };
+		C1FFB24815DCCECC00CACB04 /* PALoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PALoader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,8 @@
 		C194253D15D838BD004FC314 /* PublicAutomation */ = {
 			isa = PBXGroup;
 			children = (
+				C194256615D9512C004FC314 /* Public Headers */,
+				C1FFB24815DCCECC00CACB04 /* PALoader.m */,
 				C194256415D949CE004FC314 /* CGGeometry-KIFAdditions.h */,
 				C194256115D9460F004FC314 /* KIFTypist.h */,
 				C194256215D9460F004FC314 /* KIFTypist.m */,
@@ -92,8 +96,6 @@
 				C194254E15D839EC004FC314 /* UIAutomationBridge.m */,
 				C194254F15D839EC004FC314 /* UIView+PublicAutomation.m */,
 				C194254C15D83959004FC314 /* UIAutomation.h */,
-				C194254015D838BD004FC314 /* PublicAutomation.h */,
-				C194254215D838BD004FC314 /* PublicAutomation.m */,
 				C194253E15D838BD004FC314 /* Supporting Files */,
 			);
 			path = PublicAutomation;
@@ -105,6 +107,14 @@
 				C194253F15D838BD004FC314 /* PublicAutomation-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C194256615D9512C004FC314 /* Public Headers */ = {
+			isa = PBXGroup;
+			children = (
+				C194254015D838BD004FC314 /* PublicAutomation.h */,
+			);
+			name = "Public Headers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,10 +168,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C194254315D838BD004FC314 /* PublicAutomation.m in Sources */,
 				C194255115D83B46004FC314 /* UIView+PublicAutomation.m in Sources */,
 				C194255215D83B49004FC314 /* UIAutomationBridge.m in Sources */,
 				C194256315D94610004FC314 /* KIFTypist.m in Sources */,
+				C1FFB24915DCCECC00CACB04 /* PALoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +265,7 @@
 				C194254815D838BD004FC314 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

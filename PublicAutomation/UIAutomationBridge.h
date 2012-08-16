@@ -12,6 +12,7 @@
 + (UIASyntheticEvents *) uia;
 
 + (BOOL) checkForKeyboard;
++ (BOOL) typeIntoKeyboard:(NSString *)string;
 + (CGPoint) tapView:(UIView *)view;
 + (CGPoint) tapView:(UIView *)view atPoint:(CGPoint)point;
 

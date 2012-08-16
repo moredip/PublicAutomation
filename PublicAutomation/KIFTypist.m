@@ -32,6 +32,7 @@
     return nil;
 }
 
+
 + (NSString *)_representedKeyboardStringForCharacter:(NSString *)characterString;
 {
     // Interpret control characters appropriately
@@ -40,6 +41,20 @@
     }
     
     return characterString;
+}
+
+// Based on [KIFTestStep stepToEnterText:intoViewWithAccessibilityLabel:traits:expectedResult:]
++ (BOOL)enterText:(NSString *)text;
+{
+    NSLog( @"enterText: %@", text);
+    for (NSUInteger characterIndex = 0; characterIndex < [text length]; characterIndex++) {
+        NSString *characterString = [text substringWithRange:NSMakeRange(characterIndex, 1)];
+        
+        if (![KIFTypist enterCharacter:characterString]) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 + (BOOL)enterCharacter:(NSString *)characterString;

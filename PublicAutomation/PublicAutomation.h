@@ -6,8 +6,4 @@
 //  Copyright (c) 2012 ThoughtWorks. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-@interface PublicAutomation : NSObject
-
-@end
+#include "UIAutomationBridge.h"

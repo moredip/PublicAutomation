@@ -9,4 +9,5 @@
 @interface KIFTypist : NSObject
 + (UIWindow *) keyboardWindow;
 + (BOOL)enterCharacter:(NSString *)characterString;
++ (BOOL)enterText:(NSString *)text;
 @end
