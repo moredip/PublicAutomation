@@ -7,13 +7,26 @@
 //
 #import "UIAutomation.h"
 
+typedef enum  {
+    PADirectionLeft,
+    PADirectionRight,
+    PADirectionUp,
+    PADirectionDown
+}PADirection;
+
+
 @interface UIAutomationBridge : NSObject
 
 + (UIASyntheticEvents *) uia;
 
 + (BOOL) checkForKeyboard;
 + (BOOL) typeIntoKeyboard:(NSString *)string;
+
 + (CGPoint) tapView:(UIView *)view;
 + (CGPoint) tapView:(UIView *)view atPoint:(CGPoint)point;
 
++ (NSArray *) swipeView:(UIView *)view inDirection:(PADirection)dir;
+
+
++ (PADirection) parseDirection:(NSString *)direction;
 @end

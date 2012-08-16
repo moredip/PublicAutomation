@@ -38,4 +38,67 @@
     return tapPoint;
 }
 
+
+
+
+// THESE MAGIC NUMBERS ARE IMPORTANT. From experimentation it appears that too big or too small a ration leads to
+// gestures not being recognized as such by the system. For example setting the big ratio to 0.4 leads to
+// swipe-to-delete not working on UITableViewCells.
+// Also note that we always include at least a small component in each axes because in the past totally 'right-angled'
+//swipes weren't detected properly. But we were using a different approach to touch simulation then,
+//so this might now be unnecessary.
+#define BIG_RATIO (0.3)
+#define SMALL_RATIO (0.05)
+#define SWIPE_DURATION (0.1)
+
+//returns what portion of the view to swipe along in the x and y axes.
+CGSize swipeRatiosForDirection(PADirection direction){
+    switch (direction) {
+        case PADirectionLeft:
+            return CGSizeMake(-BIG_RATIO, SMALL_RATIO);
+        case PADirectionRight:
+            return CGSizeMake(BIG_RATIO, SMALL_RATIO);
+        case PADirectionUp:
+            return CGSizeMake(SMALL_RATIO, -BIG_RATIO);
+        case PADirectionDown:
+            return CGSizeMake(SMALL_RATIO, BIG_RATIO);
+        default:
+            [NSException raise:@"invalid swipe direction" format:@"swipe direction '%i' is invalid", direction];
+            return CGSizeZero; // just here to stop the compiler whining.
+    }
+    }
+
++ (NSArray *) swipeView:(UIView *)view inDirection:(PADirection)dir {
+    
+    CGPoint swipeStart = [view convertPoint:CGPointCenteredInRect(view.bounds) toView:nil];
+    CGSize ratios = swipeRatiosForDirection(dir);
+    CGSize viewSize = view.bounds.size;
+    CGPoint swipeEnd = CGPointMake(
+                                   swipeStart.x+(ratios.width*viewSize.width),
+                                   swipeStart.y+(ratios.height*viewSize.height)
+                                   );
+        
+    [[UIAutomationBridge uia] sendDragWithStartPoint:swipeStart endPoint:swipeEnd duration:SWIPE_DURATION];
+    
+    return [NSArray arrayWithObjects:[NSValue valueWithCGPoint:swipeStart], [NSValue valueWithCGPoint:swipeEnd], nil];
+}
+
+
++ (PADirection) parseDirection:(NSString *)direction{
+    NSString *dir = [direction lowercaseString];
+    
+    if([dir isEqualToString:@"left"]){
+        return PADirectionLeft;
+    }else if([dir isEqualToString:@"right"]){
+        return PADirectionRight;
+    }else if([dir isEqualToString:@"up"]){
+        return PADirectionUp;
+    }else if([dir isEqualToString:@"down"]){
+        return PADirectionDown;
+    }else{
+        [NSException raise:@"invalid swipe direction" format:@"swipe direction '%@' is invalid", direction];
+        return 0;
+    }
+}
+
 @end
