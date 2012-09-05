@@ -21,6 +21,7 @@ typedef enum  {
 
 + (BOOL) checkForKeyboard;
 + (BOOL) typeIntoKeyboard:(NSString *)string;
++ (void) setOrientation:(UIDeviceOrientation)orientation;
 
 + (CGPoint) tapView:(UIView *)view;
 + (CGPoint) tapView:(UIView *)view atPoint:(CGPoint)point;

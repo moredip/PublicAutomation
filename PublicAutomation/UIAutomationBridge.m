@@ -38,6 +38,9 @@
     return tapPoint;
 }
 
++ (void) setOrientation:(UIDeviceOrientation)orientation{
+    [[self uia] setOrientation:(int)orientation];
+}
 
 
 
