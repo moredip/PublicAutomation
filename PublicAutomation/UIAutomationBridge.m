@@ -5,8 +5,8 @@
 //  Created by Pete Hodgson on 8/12/12.
 //  Copyright (c) 2012 ThoughtWorks. All rights reserved.
 //
-
 #import "UIAutomationBridge.h"
+#import "UIAutomation.h"
 #import "KIFTypist.h"
 
 #import "CGGeometry-KIFAdditions.h"
