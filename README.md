@@ -31,6 +31,7 @@ if( [UIAutomationBridge checkForKeyboard] ){
 ````
 
 
+
 ## Credits
 
 PublicAutomation uses a modified version of [KIF](http://github.com/square/KIF)'s awesome keyboard-typing code. Thanks guys!
