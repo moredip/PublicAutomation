@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 ThoughtWorks. All rights reserved.
 //
 @class UIASyntheticEvents;
+@class UIATarget;
 
 typedef enum  {
     PADirectionLeft,
