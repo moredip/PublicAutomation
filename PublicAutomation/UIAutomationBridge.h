@@ -24,7 +24,10 @@ typedef enum  {
 + (BOOL) checkForKeyboard;
 + (BOOL) typeIntoKeyboard:(NSString *)string;
 + (void) setOrientation:(UIDeviceOrientation)orientation;
-+ (void) setLocation:(NSDictionary *)location;
+
+// It would be a slightly nicer API if we used CLLocation here instead of CGPoint, but that would
+/// mean pulling in the whole CoreLocation framework, which seems a bit over-the-top for just this one method.
++ (void) setLocation:(CGPoint)locationAsPoint;
 
 + (CGPoint) tapView:(UIView *)view;
 + (CGPoint) tapView:(UIView *)view atPoint:(CGPoint)point;

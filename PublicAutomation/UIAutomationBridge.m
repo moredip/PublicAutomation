@@ -46,10 +46,13 @@
     [[self uia] setOrientation:(int)orientation];
 }
 
-+ (void) setLocation:(NSDictionary *)location{
-    [[self uiat] setLocation:location];
++ (void) setLocation:(CGPoint)locationAsPoint{
+    NSDictionary *locationDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSNumber numberWithFloat:locationAsPoint.x], @"latitude",
+                                      [NSNumber numberWithFloat:locationAsPoint.y], @"longitude",
+                                   nil];
+    [[self uiat] setLocation:locationDict];
 }
-
 
 
 // THESE MAGIC NUMBERS ARE IMPORTANT. From experimentation it appears that too big or too small a ration leads to
