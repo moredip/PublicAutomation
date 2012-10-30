@@ -18,10 +18,12 @@ typedef enum  {
 @interface UIAutomationBridge : NSObject
 
 + (UIASyntheticEvents *) uia;
++ (UIATarget *) uiat;
 
 + (BOOL) checkForKeyboard;
 + (BOOL) typeIntoKeyboard:(NSString *)string;
 + (void) setOrientation:(UIDeviceOrientation)orientation;
++ (void) setLocation:(NSDictionary *)location;
 
 + (CGPoint) tapView:(UIView *)view;
 + (CGPoint) tapView:(UIView *)view atPoint:(CGPoint)point;
