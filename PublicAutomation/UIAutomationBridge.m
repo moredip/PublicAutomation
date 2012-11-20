@@ -42,6 +42,19 @@
     return tapPoint;
 }
 
++ (CGPoint) longtapView:(UIView *)view {
+    return [self longtapView:view atPoint:CGPointCenteredInRect(view.bounds)];
+}
+
++ (CGPoint) longtapView:(UIView *)view atPoint:(CGPoint)point{
+    CGPoint tapPoint = [view convertPoint:point toView:nil];
+    NSLog(@"long tapping at (%.2f,%.2f)", tapPoint.x,tapPoint.y);
+    [[self uia] touchDown:tapPoint];
+    [NSThread sleepForTimeInterval:5.0];
+    [[self uia] liftUp:tapPoint];
+    return tapPoint;
+}
+
 + (void) setOrientation:(UIDeviceOrientation)orientation{
     [[self uia] setOrientation:(int)orientation];
 }
