@@ -42,16 +42,57 @@
     return tapPoint;
 }
 
-+ (CGPoint) longtapView:(UIView *)view forDuration:(NSTimeInterval)duration{
-    return [self longtapView:view atPoint:CGPointCenteredInRect(view.bounds) forDuration:duration];
++ (CGPoint) downView:(UIView *)view {
+    return [self downView:view atPoint:CGPointCenteredInRect(view.bounds)];
 }
 
-+ (CGPoint) longtapView:(UIView *)view atPoint:(CGPoint)point forDuration:(NSTimeInterval)duration{
++ (CGPoint) downView:(UIView *)view atPoint:(CGPoint)point{
+    CGPoint tapPoint = [view convertPoint:point toView:nil];
+    return [self upPoint:tapPoint];
+}
+
++ (CGPoint) downPoint:(CGPoint)point{
+    NSLog(@"down at (%.2f,%.2f)", point.x,point.y);
+    [[self uia] touchDown:point];
+    return point;
+}
+
++ (CGPoint) upView:(UIView *)view {
+    return [self upView:view atPoint:CGPointCenteredInRect(view.bounds)];
+}
+
++ (CGPoint) upView:(UIView *)view atPoint:(CGPoint)point{
+    CGPoint tapPoint = [view convertPoint:point toView:nil];
+    return [self upPoint:tapPoint];
+}
+
++ (CGPoint) upPoint:(CGPoint)point{
+    NSLog(@"up at (%.2f,%.2f)", point.x,point.y);
+    [[self uia] liftUp:point];
+    return point;
+}
+
++ (CGPoint) longTapView:(UIView *)view forDuration:(NSTimeInterval)duration{
+    return [self longTapView:view atPoint:CGPointCenteredInRect(view.bounds) forDuration:duration];
+}
+
++ (CGPoint) longTapView:(UIView *)view atPoint:(CGPoint)point forDuration:(NSTimeInterval)duration{
     CGPoint tapPoint = [view convertPoint:point toView:nil];
     NSLog(@"long tapping at (%.2f,%.2f) for %.1f seconds", tapPoint.x,tapPoint.y, duration);
     [[self uia] touchDown:tapPoint];
     [NSThread sleepForTimeInterval:duration];
     [[self uia] liftUp:tapPoint];
+    return tapPoint;
+}
+
++ (CGPoint) doubleTapView:(UIView *)view{
+    return [self doubleTapView:view atPoint:CGPointCenteredInRect(view.bounds)];
+}
+
++ (CGPoint) doubleTapView:(UIView *)view atPoint:(CGPoint)point{
+    CGPoint tapPoint = [view convertPoint:point toView:nil];
+    NSLog(@"double tapping at (%.2f,%.2f)", tapPoint.x,tapPoint.y);
+    [[self uia] sendDoubleTap:tapPoint];
     return tapPoint;
 }
 
