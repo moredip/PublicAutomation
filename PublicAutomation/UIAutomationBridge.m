@@ -42,16 +42,15 @@
     return tapPoint;
 }
 
-+ (CGPoint) longtapView:(UIView *)view forDuration:(NSNumber *)duration{
++ (CGPoint) longtapView:(UIView *)view forDuration:(NSTimeInterval)duration{
     return [self longtapView:view atPoint:CGPointCenteredInRect(view.bounds) forDuration:duration];
 }
 
-+ (CGPoint) longtapView:(UIView *)view atPoint:(CGPoint)point forDuration:(NSNumber *)duration{
++ (CGPoint) longtapView:(UIView *)view atPoint:(CGPoint)point forDuration:(NSTimeInterval)duration{
     CGPoint tapPoint = [view convertPoint:point toView:nil];
-    NSLog(@"long tapping at (%.2f,%.2f)", tapPoint.x,tapPoint.y);
+    NSLog(@"long tapping at (%.2f,%.2f) for %.1f seconds", tapPoint.x,tapPoint.y, duration);
     [[self uia] touchDown:tapPoint];
-    NSTimeInterval interval = [duration doubleValue];
-    [NSThread sleepForTimeInterval:interval];
+    [NSThread sleepForTimeInterval:duration];
     [[self uia] liftUp:tapPoint];
     return tapPoint;
 }
