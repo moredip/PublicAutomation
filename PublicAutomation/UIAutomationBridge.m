@@ -48,7 +48,7 @@
 
 + (CGPoint) downView:(UIView *)view atPoint:(CGPoint)point{
     CGPoint tapPoint = [view convertPoint:point toView:nil];
-    return [self upPoint:tapPoint];
+    return [self downPoint:tapPoint];
 }
 
 + (CGPoint) downPoint:(CGPoint)point{
@@ -80,7 +80,7 @@
     CGPoint tapPoint = [view convertPoint:point toView:nil];
     NSLog(@"long tapping at (%.2f,%.2f) for %.1f seconds", tapPoint.x,tapPoint.y, duration);
     [[self uia] touchDown:tapPoint];
-    [NSThread sleepForTimeInterval:duration];
+    CFRunLoopRunInMode(kCFRunLoopDefaultMode, duration, false);
     [[self uia] liftUp:tapPoint];
     return tapPoint;
 }
