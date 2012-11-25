@@ -11,6 +11,10 @@
 
 #import "CGGeometry-KIFAdditions.h"
 
+#define INITIAL_DRAG_DELAY (0.20)
+#define DEFAULT_DRAG_DURATION (0.10)
+#define NUM_POINTS_IN_DRAG (100)
+
 @implementation UIAutomationBridge
 
 + (UIASyntheticEvents *)uia{
@@ -94,6 +98,31 @@
     NSLog(@"double tapping at (%.2f,%.2f)", tapPoint.x,tapPoint.y);
     [[self uia] sendDoubleTap:tapPoint];
     return tapPoint;
+}
+
++ (void) dragViewWithInitialDelay:(UIView *)view toPoint:(CGPoint)destPoint {
+    [self dragViewWithInitialDelay:view toPoint:destPoint duration:DEFAULT_DRAG_DURATION];
+}
++ (void) dragViewWithInitialDelay:(UIView *)view toPoint:(CGPoint)destPoint duration:(NSTimeInterval)duration{
+    CGPoint startPoint = [view convertPoint:CGPointCenteredInRect(view.bounds) toView:nil];
+    NSLog(@"dragging from (%.2f,%.2f) to (%.2f,%.2f) with duration %f", startPoint.x,startPoint.y,destPoint.x,destPoint.y,duration);
+    
+    CGPoint dragDelta = CGPointMake(destPoint.x-startPoint.x, destPoint.y-startPoint.y);
+    
+    [[self uia] touchDown:startPoint];
+    CFRunLoopRunInMode(kCFRunLoopDefaultMode, INITIAL_DRAG_DELAY, false);
+    
+    NSTimeInterval pauseBetweenPoints = duration/NUM_POINTS_IN_DRAG;
+    for( int i = 0; i < NUM_POINTS_IN_DRAG; i++ ){
+        CGFloat progress = ((CGFloat)i)/NUM_POINTS_IN_DRAG;
+        CGPoint nextPoint = CGPointMake(
+                                        startPoint.x + (dragDelta.x*progress),
+                                        startPoint.y + (dragDelta.y*progress)
+                                        );
+        [[self uia] _moveLastTouchPoint:nextPoint];
+        CFRunLoopRunInMode(kCFRunLoopDefaultMode, pauseBetweenPoints, false);
+    }
+    [[self uia] liftUp:destPoint];
 }
 
 + (void) setOrientation:(UIDeviceOrientation)orientation{

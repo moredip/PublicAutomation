@@ -42,6 +42,8 @@ typedef enum  {
 + (CGPoint) doubleTapView:(UIView *)view;
 + (CGPoint) doubleTapView:(UIView *)view atPoint:(CGPoint)point;
 
++ (void) dragViewWithInitialDelay:(UIView *)view toPoint:(CGPoint)destPoint duration:(NSTimeInterval)duration;
++ (void) dragViewWithInitialDelay:(UIView *)view toPoint:(CGPoint)destPoint;
 
 + (NSArray *) swipeView:(UIView *)view inDirection:(PADirection)dir;
 
