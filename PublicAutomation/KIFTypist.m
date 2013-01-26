@@ -136,7 +136,9 @@
     }
     
     if (keyToTap) {
-        [UIAutomationBridge tapView:keyboardView atPoint:CGPointCenteredInRect([keyToTap frame])];
+        UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+        CGPoint pointInKeyWindow = [keyboardView convertPoint:CGPointCenteredInRect([keyToTap frame]) toView:keyWindow];
+        [UIAutomationBridge tapView:keyWindow atPoint:pointInKeyWindow];
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, keystrokeDelay, false);
         
         return YES;
