@@ -198,4 +198,58 @@ CGSize swipeRatiosForDirection(PADirection direction){
     }
 }
 
++ (BOOL)dragThumbInSlider:(UIView*)slider toValue:(double)value withDuration:(NSTimeInterval)duration {
+    
+    //[NSException raise:@"a" format:@"%@",NSStringFromClass([slider class]) ];
+    if ( ![slider isKindOfClass:[UISlider class]] )
+        return false;
+    
+    UISlider * theSlider = (UISlider*)slider;
+    
+    if ( value<theSlider.minimumValue || value>theSlider.maximumValue )
+        return false;
+    
+    CGRect bounds = theSlider.bounds;
+    // Apple recommends not calling the folowing methods,
+    // but I haven't seen any side effects.
+    CGRect trackRect = [theSlider trackRectForBounds:bounds];
+    CGRect actualThumbRect = [theSlider thumbRectForBounds:bounds trackRect:trackRect value:theSlider.value];
+    CGRect targetThumbRect = [theSlider thumbRectForBounds:bounds trackRect:trackRect value:value];
+    
+    
+    CGPoint startPointInSlider = CGPointMake(actualThumbRect.origin.x+actualThumbRect.size.width/2,
+                                             actualThumbRect.origin.y+actualThumbRect.size.height/2);
+    
+    CGPoint destPointInSlider = CGPointMake(targetThumbRect.origin.x+targetThumbRect.size.width/2,
+                                            targetThumbRect.origin.y+targetThumbRect.size.height/2);
+    
+    CGPoint startPoint = [theSlider convertPoint:startPointInSlider toView:nil];
+    CGPoint destPoint = [theSlider convertPoint:destPointInSlider toView:nil];
+    
+    // copy-pasted code from [UIAUtomationBridge dragView...], didn't feel entitled to refactor it
+    NSLog(@"dragging slider's thumb from (%.2f,%.2f) to (%.2f,%.2f) with duration %f, value %f", startPoint.x,startPoint.y,destPoint.x,destPoint.y,duration,value);
+    CGPoint dragDelta = CGPointMake(destPoint.x-startPoint.x, destPoint.y-startPoint.y);
+    
+    [[self uia] touchDown:startPoint];
+    CFRunLoopRunInMode(kCFRunLoopDefaultMode, INITIAL_DRAG_DELAY, false);
+    
+    NSTimeInterval pauseBetweenPoints = duration/NUM_POINTS_IN_DRAG;
+    for( int i = 0; i < NUM_POINTS_IN_DRAG; i++ ){
+        CGFloat progress = ((CGFloat)i)/NUM_POINTS_IN_DRAG;
+        CGPoint nextPoint = CGPointMake(
+                                        startPoint.x + (dragDelta.x*progress),
+                                        startPoint.y + (dragDelta.y*progress)
+                                        );
+        [[self uia] _moveLastTouchPoint:nextPoint];
+        CFRunLoopRunInMode(kCFRunLoopDefaultMode, pauseBetweenPoints, false);
+    }
+    [[self uia] liftUp:destPoint];
+    
+    return true;
+}
+
++ (BOOL)dragThumbInSlider:(UIView*)slider toValue:(double)value {
+    return [self dragThumbInSlider:slider toValue:value withDuration:DEFAULT_DRAG_DURATION];
+}
+
 @end
