@@ -50,8 +50,8 @@ typedef enum  {
 
 + (PADirection) parseDirection:(NSString *)direction;
 
-// Declared to take in views, because I don't really know what might come from a selector,
-// but implementation checks if class is slider. Is this the way this is supposed to work?
+// Declared to take in views, but implementation checks if class is slider and raises if you haven't passed one it.
+// Returns false if value is outside of the slider's range. Returns true otherwise.
 + (BOOL)dragThumbInSlider:(UIView*)slider toValue:(double)value withDuration:(NSTimeInterval)duration;
 + (BOOL)dragThumbInSlider:(UIView*)slider toValue:(double)value;
 @end
