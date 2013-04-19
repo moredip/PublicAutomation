@@ -203,13 +203,7 @@ CGSize swipeRatiosForDirection(PADirection direction){
     }
 }
 
-+ (BOOL)dragThumbInSlider:(UIView*)view toValue:(double)value withDuration:(NSTimeInterval)duration {
-    
-    if ( ![view isKindOfClass:[UISlider class]] )
-        [NSException raise:@"provided view is not a UISlider" format:@"view is of class %@", [UISlider class]];
-    
-    UISlider *slider = (UISlider*)view;
-    
++ (BOOL)dragThumbInSlider:(UISlider*)slider toValue:(double)value withDuration:(NSTimeInterval)duration {    
     if ( value<slider.minimumValue || value>slider.maximumValue )
         return NO;
     
@@ -234,7 +228,7 @@ CGSize swipeRatiosForDirection(PADirection direction){
     return YES;
 }
 
-+ (BOOL)dragThumbInSlider:(UIView*)slider toValue:(double)value {
++ (BOOL)dragThumbInSlider:(UISlider*)slider toValue:(double)value {
     return [self dragThumbInSlider:slider toValue:value withDuration:DEFAULT_DRAG_DURATION];
 }
 
