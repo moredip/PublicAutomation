@@ -39,11 +39,13 @@
 }
 
 + (CGPoint) tapView:(UIView *)view atPoint:(CGPoint)point{
-    CGPoint tapPoint = [view convertPoint:point toView:nil];
-    NSLog(@"tapping at (%.2f,%.2f)", tapPoint.x,tapPoint.y);
-    [[self uia] sendTap:tapPoint];
+    CGPoint tapPointInWindowCoords = [view convertPoint:point toView:[view window]];
+    CGPoint tapPointInScreenCoords = [[view window] convertPoint:tapPointInWindowCoords toWindow:nil];
     
-    return tapPoint;
+    NSLog(@"tapping at (%.2f,%.2f)", tapPointInScreenCoords.x,tapPointInScreenCoords.y);
+    [[self uia] sendTap:tapPointInScreenCoords];
+    
+    return tapPointInScreenCoords;
 }
 
 + (CGPoint) downView:(UIView *)view {
