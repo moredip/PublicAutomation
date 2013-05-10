@@ -10,4 +10,5 @@
 + (UIWindow *) keyboardWindow;
 + (BOOL)enterCharacter:(NSString *)characterString;
 + (BOOL)enterText:(NSString *)text;
++ (void) cancelAnyInitialKeyboardShift;
 @end
