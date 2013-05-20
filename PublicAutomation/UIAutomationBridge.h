@@ -30,6 +30,7 @@ typedef enum  {
 + (void) setLocation:(CGPoint)locationAsPoint;
 
 + (CGPoint) tapView:(UIView *)view;
++ (CGPoint) tapPoint:(CGPoint)point;
 + (CGPoint) tapView:(UIView *)view atPoint:(CGPoint)point;
 + (CGPoint) downView:(UIView *)view;
 + (CGPoint) downView:(UIView *)view atPoint:(CGPoint)point;
@@ -39,7 +40,9 @@ typedef enum  {
 + (CGPoint) upPoint:(CGPoint)point;
 + (CGPoint) longTapView:(UIView *)view forDuration:(NSTimeInterval)duration;
 + (CGPoint) longTapView:(UIView *)view atPoint:(CGPoint)point forDuration:(NSTimeInterval)duration;
++ (CGPoint) longTapPoint:(CGPoint)point forDuration:(NSTimeInterval)duration;
 + (CGPoint) doubleTapView:(UIView *)view;
++ (CGPoint) doubleTapPoint:(CGPoint)point;
 + (CGPoint) doubleTapView:(UIView *)view atPoint:(CGPoint)point;
 
 + (void) dragViewWithInitialDelay:(UIView *)view toPoint:(CGPoint)destPoint duration:(NSTimeInterval)duration;
@@ -50,8 +53,7 @@ typedef enum  {
 
 + (PADirection) parseDirection:(NSString *)direction;
 
-// Declared to take in views, but implementation checks if class is slider and raises if you haven't passed one it.
 // Returns false if value is outside of the slider's range. Returns true otherwise.
-+ (BOOL)dragThumbInSlider:(UIView*)slider toValue:(double)value withDuration:(NSTimeInterval)duration;
-+ (BOOL)dragThumbInSlider:(UIView*)slider toValue:(double)value;
++ (BOOL)dragThumbInSlider:(UISlider*)slider toValue:(double)value withDuration:(NSTimeInterval)duration;
++ (BOOL)dragThumbInSlider:(UISlider*)slider toValue:(double)value;
 @end

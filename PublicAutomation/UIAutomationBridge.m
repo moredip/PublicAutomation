@@ -38,12 +38,19 @@
     return [self tapView:view atPoint:CGPointCenteredInRect(view.bounds)];
 }
 
++ (CGPoint) tapPoint:(CGPoint)point {
+    [[self uia] sendTap:point];
+    return point;
+}
+
 + (CGPoint) tapView:(UIView *)view atPoint:(CGPoint)point{
-    CGPoint tapPoint = [view convertPoint:point toView:nil];
-    NSLog(@"tapping at (%.2f,%.2f)", tapPoint.x,tapPoint.y);
-    [[self uia] sendTap:tapPoint];
+    CGPoint tapPointInWindowCoords = [view convertPoint:point toView:[view window]];
+    CGPoint tapPointInScreenCoords = [[view window] convertPoint:tapPointInWindowCoords toWindow:nil];
     
-    return tapPoint;
+    NSLog(@"tapping at (%.2f,%.2f)", tapPointInScreenCoords.x,tapPointInScreenCoords.y);
+    [[self uia] sendTap:tapPointInScreenCoords];
+    
+    return tapPointInScreenCoords;
 }
 
 + (CGPoint) downView:(UIView *)view {
@@ -83,6 +90,11 @@
 + (CGPoint) longTapView:(UIView *)view atPoint:(CGPoint)point forDuration:(NSTimeInterval)duration{
     CGPoint tapPoint = [view convertPoint:point toView:nil];
     NSLog(@"long tapping at (%.2f,%.2f) for %.1f seconds", tapPoint.x,tapPoint.y, duration);
+    [self longTapPoint:tapPoint forDuration:duration];
+    return tapPoint;
+}
+
++ (CGPoint) longTapPoint:(CGPoint)tapPoint forDuration:(NSTimeInterval)duration {
     [[self uia] touchDown:tapPoint];
     CFRunLoopRunInMode(kCFRunLoopDefaultMode, duration, false);
     [[self uia] liftUp:tapPoint];
@@ -96,8 +108,13 @@
 + (CGPoint) doubleTapView:(UIView *)view atPoint:(CGPoint)point{
     CGPoint tapPoint = [view convertPoint:point toView:nil];
     NSLog(@"double tapping at (%.2f,%.2f)", tapPoint.x,tapPoint.y);
+    return [self doubleTapPoint:tapPoint];
+}
+
++ (CGPoint) doubleTapPoint:(CGPoint)tapPoint {
     [[self uia] sendDoubleTap:tapPoint];
     return tapPoint;
+    
 }
 
 + (void) dragFromPoint:(CGPoint)startPoint toPoint:(CGPoint)destPoint duration:(NSTimeInterval)duration{
@@ -203,13 +220,7 @@ CGSize swipeRatiosForDirection(PADirection direction){
     }
 }
 
-+ (BOOL)dragThumbInSlider:(UIView*)view toValue:(double)value withDuration:(NSTimeInterval)duration {
-    
-    if ( ![view isKindOfClass:[UISlider class]] )
-        [NSException raise:@"provided view is not a UISlider" format:@"view is of class %@", [UISlider class]];
-    
-    UISlider *slider = (UISlider*)view;
-    
++ (BOOL)dragThumbInSlider:(UISlider*)slider toValue:(double)value withDuration:(NSTimeInterval)duration {    
     if ( value<slider.minimumValue || value>slider.maximumValue )
         return NO;
     
@@ -234,7 +245,7 @@ CGSize swipeRatiosForDirection(PADirection direction){
     return YES;
 }
 
-+ (BOOL)dragThumbInSlider:(UIView*)slider toValue:(double)value {
++ (BOOL)dragThumbInSlider:(UISlider*)slider toValue:(double)value {
     return [self dragThumbInSlider:slider toValue:value withDuration:DEFAULT_DRAG_DURATION];
 }
 

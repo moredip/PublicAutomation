@@ -11,6 +11,8 @@
 #import "UIAutomationBridge.h"
 #import "CGGeometry-KIFAdditions.h"
 
+const NSTimeInterval KEYSTROKE_DELAY = 0.05f;
+
 @interface KIFTypist()
 + (NSString *)_representedKeyboardStringForCharacter:(NSString *)characterString;
 + (BOOL)_enterCharacter:(NSString *)characterString history:(NSMutableDictionary *)history;
@@ -57,32 +59,65 @@
     return YES;
 }
 
++ (UIView *)keyboardView{
+    return [[self _subviewsOfView:[self keyboardWindow] withClassNamePrefix:@"UIKBKeyplaneView"] lastObject];
+}
+
++ (id /*UIKBKeyplane*/)keyplane {
+    return [self.keyboardView valueForKey:@"keyplane"];
+}
+
++ (id /*UIKBKey*/)findKeyNamed:(NSString *)keyName;
+{
+    id /*UIKBKeyplane*/ keyplane = [[self keyboardView] valueForKey:@"keyplane"];
+    NSArray *keys = [keyplane valueForKey:@"keys"];
+    
+    for (id/*UIKBKey*/ key in keys) {
+        NSString *representedString = [key valueForKey:@"representedString"];
+        if ([representedString isEqual:keyName]) {
+            return key;
+        }
+    }
+    
+    return nil;
+}
+
++ (void)cancelAnyInitialKeyboardShift
+{
+    if( [[self.keyplane valueForKey:@"isShiftKeyplane"] boolValue] )
+    {   
+        [self tapKey:[self findKeyNamed:@"Shift"]];
+    }
+}
+
++ (void)tapKey:(id/*UIKBKey*/)keyToTap{
+    [UIAutomationBridge tapView:[self keyboardView] atPoint:CGPointCenteredInRect([keyToTap frame])];
+    CFRunLoopRunInMode(kCFRunLoopDefaultMode, KEYSTROKE_DELAY, false);
+}
+
 + (BOOL)enterCharacter:(NSString *)characterString;
 {
+    [self cancelAnyInitialKeyboardShift];
     return [self _enterCharacter:characterString history:[NSMutableDictionary dictionary]];
 }
 
 + (BOOL)_enterCharacter:(NSString *)characterString history:(NSMutableDictionary *)history;
-{
-    const NSTimeInterval keystrokeDelay = 0.05f;
-    
+{    
     // Each key on the keyboard does not have its own view, so we have to ask for the list of keys,
     // find the appropriate one, and tap inside the frame of that key on the main keyboard view.
     if (!characterString.length) {
         return YES;
     }
-    
-    UIView *keyboardView = [[self _subviewsOfView:[self keyboardWindow] withClassNamePrefix:@"UIKBKeyplaneView"] lastObject];
-    
+        
     // If we didn't find the standard keyboard view, then we may have a custom keyboard
-    if (!keyboardView) {
+    if (![self keyboardView]) {
         // Custom keyboards not supported for now - I would have had to import more KIF stuff
         // than I wanted to.
         NSLog( @"Sorry, custom keyboards are currently not supported." );
         return NO;
     }
     
-    id /*UIKBKeyplane*/ keyplane = [keyboardView valueForKey:@"keyplane"];
+    id /*UIKBKeyplane*/ keyplane = [self keyplane];
     BOOL isShiftKeyplane = [[keyplane valueForKey:@"isShiftKeyplane"] boolValue];
     
     NSMutableArray *unvisitedForKeyplane = [history objectForKey:[NSValue valueWithNonretainedObject:keyplane]];
@@ -136,21 +171,16 @@
     }
     
     if (keyToTap) {
-        UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
-        CGPoint pointInKeyWindow = [keyboardView convertPoint:CGPointCenteredInRect([keyToTap frame]) toView:keyWindow];
-        [UIAutomationBridge tapView:keyWindow atPoint:pointInKeyWindow];
-        CFRunLoopRunInMode(kCFRunLoopDefaultMode, keystrokeDelay, false);
-        
+        [self tapKey:keyToTap];
         return YES;
     }
     
     // We didn't find anything, so try the symbols pane
     if (modifierKey) {
-        [UIAutomationBridge tapView:keyboardView atPoint:CGPointCenteredInRect([modifierKey frame])];
-        CFRunLoopRunInMode(kCFRunLoopDefaultMode, keystrokeDelay, false);
+        [self tapKey:modifierKey];
         
         // If we're back at a place we've been before, and we still have things to explore in the previous
-        id /*UIKBKeyplane*/ newKeyplane = [keyboardView valueForKey:@"keyplane"];
+        id /*UIKBKeyplane*/ newKeyplane = [self keyplane];
         id /*UIKBKeyplane*/ previousKeyplane = [history valueForKey:@"previousKeyplane"];
         
         if (newKeyplane == previousKeyplane) {
